@@ -77,7 +77,10 @@ namespace Lab_8
                         }
                         break;
                     case 3:
-
+                        Birthday myBirthday = new Birthday(2005, 4, 1);
+                        Console.WriteLine($"I borned on {myBirthday.DayOfWeekOfBirthday()}");
+                        Console.WriteLine($"In 2025 year my birthay will be on {myBirthday.DayOfWeekOfBirthdayInYear(2025)}");
+                        Console.WriteLine($"The day of my birthday will be : {myBirthday.DaysUntilBirthday()}");
                         break;
                     default:
                         Console.WriteLine("Error!");
@@ -168,6 +171,42 @@ namespace Lab_8
             double integ = a.x * b.x + a.i * b.i;
             double com = a.i * b.x - a.x * b.i;
             return new Complex(integ / denominator, com / denominator);
+        }
+    }
+
+
+
+    struct Birthday
+    {
+        private DateTime dateOfBirth;
+
+        public Birthday(int year, int month, int day)
+        {
+            this.dateOfBirth = new DateTime(year, month, day);
+        }
+
+        public string DayOfWeekOfBirthday()
+        {
+            return dateOfBirth.DayOfWeek.ToString();
+        }
+
+        public string DayOfWeekOfBirthdayInYear(int year)
+        {
+            DateTime nextBirthday = new DateTime(year, dateOfBirth.Month, dateOfBirth.Day);
+            return nextBirthday.DayOfWeek.ToString();
+        }
+
+        public int DaysUntilBirthday()
+        {
+            DateTime today = DateTime.Today;
+            DateTime nextBirthday = new DateTime(today.Year, dateOfBirth.Month, dateOfBirth.Day);
+
+            if (nextBirthday < today)
+            {
+                nextBirthday = nextBirthday.AddYears(1);
+            }
+
+            return (nextBirthday - today).Days;
         }
     }
 }
